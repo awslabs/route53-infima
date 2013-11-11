@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Amazon Route 53 Infima on the AWS SDK for Java
+Bundle-SymbolicName: com.amazonaws.services.route53;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Amazon Technologies, Inc
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.amazonaws.services.route53.infima,
+ com.amazonaws.services.route53.infima.utils

@@ -81,14 +81,14 @@ while user "Bob" may be assigned endpoints "B", "F" and "M";
 
                             A |*B*| C | D | E |*F*| G | H | ... | L |*M*| N
 
-With a ShuffleShard pattern like this, if the traffic or requests associated with user "Bob" causes a problem to the three endpoints that "Bob" is being assigned, this has little if any impact on "Alice" as she shares only one endpoint with "Bob". The overall service-level impact is dramatically reduced to 1/(N choose K) , where K is the number of endpoints we assign each identifier or user. For some services with a large enough number of endpoints, it is even possible to assign each user their own unique ShuffleShard.
+With a ShuffleShard pattern like this, if the traffic or requests associated with user "Bob" causes a problem to the three endpoints that "Bob" is being assigned, this has little if any impact on "Alice" as she shares only one endpoint with "Bob". The overall service-level impact is dramatically reduced to 1/(N choose K) , where K is the number of endpoints we assign each shuffle shard. For some services with a large enough number of endpoints, it is even possible to assign each user their own unique ShuffleShard.
 
 With Infima, ShuffleShards are also Lattice-aware. The shuffle sharders will take care to assign endpoints from each compartment as appropriate. For example when provided with an availability-zone aware Lattice, the Infima Shuffle Sharders will compute ShuffleShards containing endpoints in each availability-zone.  When given a two dimensional, or higher dimensional, Lattice the shuffle sharders will take care to ensure that every dimensional unit is represented at most once and that there is not an excess of endpoints in any particular axis of potential failure. 
 
 Infima provides two ShuffleShard implementations;
 
 1. **SimpleSignatureShuffleSharder** - This ShuffleSharding implementation uses simple probabilistic hashing to assign each identifier, represented by a byte array, a shuffle shard. The complete list of endpoints should be supplied in lattice form, and you may specify how many endpoints should be chosen from each eligible Lattice compartment. 
-1. **StatefulSearchingShuffleSharder** - This ShuffleSharding implementation uses a datastore, provided by you, to record every shard as they are assigned. This implementation can then use this datastore to enforce guarantees about overlap between shards. For example you may specify that no two assigned shards may overlap by more than two endpoints. This implementation will perform an exhaustive search to find any eligible pattern of endpoints remaining to assign new shuffle shards.
+1. **StatefulSearchingShuffleSharder** - This ShuffleSharding implementation uses a datastore, provided by you, to record every shuffle shard as they are assigned. This implementation can then use this datastore to enforce guarantees about overlap between shuffle shards. For example you may specify that no two assigned shuffle shards may overlap by more than two endpoints. This implementation will perform an exhaustive search to find any eligible pattern of endpoints remaining to assign new shuffle shards.
 
 ### AnswerSet
 

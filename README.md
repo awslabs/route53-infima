@@ -126,31 +126,32 @@ RubberTree is ternary tree class designed for managing elastic resources using R
 
 RubberTree will convert Lattices and ShuffleShards into weighted series of records that depend on the right Route 53 health checks. RubberTree will compute standby records that are prepared for the case of any single endpoint failure, and for faults with any unit in your dimensional Lattices (e.g. a particular availability zone). RubberTree takes care of the complex configuration needed to support endpoint discovery that is always prepared for faults. 
 
-For example, given a Lattice with the following configuration;
+For example, given a One Dimensional Lattice with the following configuration;
 
                                      us-east-1a  us-east-1b     
                                      +---------+----------+
                                      |  A   B  |  C   D   |     
                                      +---------+----------+
 
-and a maximum number of records per answer of 4, RubberTree will compute a tree of the form;
+and a maximum number of records per answer of 3, RubberTree will compute a tree of the form;
 
-                                         www.example.com
-                                         |            |
-                                      weight: 1       |
-                                         |        weight: 0 
-                                    [ A B C D ]       |
-                                                      |
-                  +--------------secondary.www.example.com----------------+
-                  |       |           |           |             |         |
-           weight: 1   weight: 1   weight: 1   weight: 1   weight: 0    weight: 0
-           [ A B C ]   [ A B D ]   [ A C D ]   [ B C D ]     |                |
-                                                             |                |
-                                          us-east-1a.secondary        us-east-1b.secondary
-                                          |        |        |         |         |        |
-                                  weight: 1 weight: 0 weight: 0    weight: 1 weight: 0 weight: 0
-                                      |        |        |             |         |        |
-                                   [ A B ]   [ A ]    [ B ]         [ C D ]    [ C ]    [ D ]
+                              www.example.com
+                                     |
+         +------------+---------------------------+---------------+-------------------+
+         |            |              |            |               |                   |
+    weight: 1     weight: 1      weight: 1    weight: 1       weight: 0           weight: 0
+    [ A B C ]     [ A B D ]      [ A C D ]    [ B C D ]           |                   |
+                                                                  |                   |
+                                                      secondary.www.example.com       |
+                                                                  |                   |
+                                                                  |       secondary.www.example.com
+                                                                  |                   |
+                                                         us-east-1a.secondary         |
+                                                                 |                    |
+                                                              [ A B ]        us-east-1b.secondary
+                                                                                      |
+                                                                                   [ C D ]
+
 
 As Route 53 follows zero-weighted branches only when there are no other healthy options, this configuration makes every effort to return as many healthy endpoints as possible. The RubberTree class handles all of the complex configuration.
 

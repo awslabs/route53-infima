@@ -31,7 +31,7 @@ import java.util.List;
  * reduced to a factor of 1/(N choose K) where K is the number of items in the
  * shuffle shard.
  * 
- * This shuffle shard implementation uses simople probabilistic hashing to
+ * This shuffle shard implementation uses simple probabilistic hashing to
  * compute shuffle shards.
  * 
  * @param <T>

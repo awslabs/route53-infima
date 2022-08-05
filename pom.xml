@@ -23,7 +23,7 @@
     </licenses>
 
     <properties>
-        <aws-java-sdk.version>1.4.7</aws-java-sdk.version>
+        <aws-java-sdk.version>1.12.276</aws-java-sdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

@@ -23,7 +23,8 @@
     </licenses>
 
     <properties>
-        <aws-java-sdk.version>1.4.7</aws-java-sdk.version>
+        <aws-java-sdk.version>1.12.276</aws-java-sdk.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -61,8 +62,8 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-              <source>1.6</source>
-              <target>1.6</target>
+              <source>1.7</source>
+              <target>1.7</target>
               <encoding>UTF-8</encoding>
             </configuration>
           </plugin>
@@ -73,6 +74,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
+          <version>3.0.1</version>
           <executions>
             <execution>
               <id>sign-artifacts</id>
